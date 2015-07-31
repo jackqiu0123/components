@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.acfun.components
+package com.idzeir.components
 {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;

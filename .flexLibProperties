@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
-    <classEntry path="com.idzeir.acfun.components.VBox"/>
-    <classEntry path="com.idzeir.acfun.components.HBox"/>
-    <classEntry path="com.idzeir.acfun.components.List"/>
-    <classEntry path="com.idzeir.acfun.components.LabelButtonStyle"/>
-    <classEntry path="com.idzeir.acfun.components.Radio"/>
-    <classEntry path="com.idzeir.acfun.components.Box"/>
-    <classEntry path="com.idzeir.acfun.components.LabelButton"/>
-    <classEntry path="com.idzeir.acfun.components.IRender"/>
-    <classEntry path="com.idzeir.acfun.components.LabelRender"/>
-    <classEntry path="com.idzeir.acfun.components.ToggleButton"/>
-    <classEntry path="com.idzeir.acfun.components.RadioGroup"/>
-    <classEntry path="com.idzeir.acfun.components.Style"/>
-    <classEntry path="com.idzeir.acfun.gif.events.FileTypeEvent"/>
-    <classEntry path="com.idzeir.acfun.gif.encoder.NeuQuant"/>
-    <classEntry path="com.idzeir.acfun.gif.encoder.LZWEncoder"/>
-    <classEntry path="com.idzeir.acfun.gif.frames.GIFFrame"/>
-    <classEntry path="com.idzeir.acfun.gif.events.GIFPlayerEvent"/>
-    <classEntry path="com.idzeir.acfun.gif.events.TimeoutEvent"/>
-    <classEntry path="com.idzeir.acfun.gif.events.FrameEvent"/>
-    <classEntry path="com.idzeir.acfun.gif.encoder.GIFEncoder"/>
-    <classEntry path="com.idzeir.acfun.gif.decoder.GIFDecoder"/>
-    <classEntry path="com.idzeir.acfun.gif.Gif"/>
-    <classEntry path="com.idzeir.acfun.gif.errors.FileTypeError"/>
+    <classEntry path="com.idzeir.components.VBox"/>
+    <classEntry path="com.idzeir.components.HBox"/>
+    <classEntry path="com.idzeir.components.List"/>
+    <classEntry path="com.idzeir.components.LabelButtonStyle"/>
+    <classEntry path="com.idzeir.components.Radio"/>
+    <classEntry path="com.idzeir.components.Box"/>
+    <classEntry path="com.idzeir.components.LabelButton"/>
+    <classEntry path="com.idzeir.components.IRender"/>
+    <classEntry path="com.idzeir.components.LabelRender"/>
+    <classEntry path="com.idzeir.components.ToggleButton"/>
+    <classEntry path="com.idzeir.components.RadioGroup"/>
+    <classEntry path="com.idzeir.components.Style"/>
+    <classEntry path="com.idzeir.gif.events.FileTypeEvent"/>
+    <classEntry path="com.idzeir.gif.encoder.NeuQuant"/>
+    <classEntry path="com.idzeir.gif.encoder.LZWEncoder"/>
+    <classEntry path="com.idzeir.gif.frames.GIFFrame"/>
+    <classEntry path="com.idzeir.gif.events.GIFPlayerEvent"/>
+    <classEntry path="com.idzeir.gif.events.TimeoutEvent"/>
+    <classEntry path="com.idzeir.gif.events.FrameEvent"/>
+    <classEntry path="com.idzeir.gif.encoder.GIFEncoder"/>
+    <classEntry path="com.idzeir.gif.decoder.GIFDecoder"/>
+    <classEntry path="com.idzeir.gif.Gif"/>
+    <classEntry path="com.idzeir.gif.errors.FileTypeError"/>
+    <classEntry path="com.idzeir.components.Panel"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

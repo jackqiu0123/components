@@ -1,6 +1,7 @@
-package com.idzeir.acfun.gif.events {	
+package com.idzeir.gif.events {	
+	import com.idzeir.gif.frames.GIFFrame;
+	
 	import flash.events.Event;
-	import com.idzeir.acfun.gif.frames.GIFFrame;
 	
 	public class FrameEvent extends Event	
 	{

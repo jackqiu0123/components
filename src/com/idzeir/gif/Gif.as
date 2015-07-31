@@ -4,28 +4,26 @@
 * @version 0.6
 */
 
-package com.idzeir.acfun.gif {	
-	import flash.events.TimerEvent;
-	import flash.net.URLLoaderDataFormat;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
+package com.idzeir.gif {	
+	import com.idzeir.gif.decoder.GIFDecoder;
+	import com.idzeir.gif.errors.FileTypeError;
+	import com.idzeir.gif.events.FileTypeEvent;
+	import com.idzeir.gif.events.FrameEvent;
+	import com.idzeir.gif.events.GIFPlayerEvent;
+	import com.idzeir.gif.events.TimeoutEvent;
+	import com.idzeir.gif.frames.GIFFrame;
+	
+	import flash.display.Bitmap;
+	import flash.errors.ScriptTimeoutError;
 	import flash.events.Event;
-	import flash.system.LoaderContext;
+	import flash.events.IOErrorEvent;
+	import flash.events.TimerEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.Timer;
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.utils.getTimer;
-	import flash.events.IOErrorEvent;
-	import flash.errors.ScriptTimeoutError;
-	import com.idzeir.acfun.gif.frames.GIFFrame;
-	import com.idzeir.acfun.gif.decoder.GIFDecoder;
-	import com.idzeir.acfun.gif.events.GIFPlayerEvent;
-	import com.idzeir.acfun.gif.events.FrameEvent;
-	import com.idzeir.acfun.gif.events.TimeoutEvent;
-	import com.idzeir.acfun.gif.events.FileTypeEvent;
-	import com.idzeir.acfun.gif.errors.FileTypeError;
 	
 	public class Gif extends Bitmap
 	{

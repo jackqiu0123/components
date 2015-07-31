@@ -1,4 +1,4 @@
-package com.idzeir.acfun.gif.errors {
+package com.idzeir.gif.errors {
 	public class FileTypeError extends Error 	
 	{
 		public function FileTypeError ( pMessage:String )	

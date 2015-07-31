@@ -26,7 +26,7 @@
 * @version 0.1 AS3 implementation
 */
 
-package com.idzeir.acfun.gif.encoder {
+package com.idzeir.gif.encoder {
 	import flash.utils.ByteArray;
 	
 	public class NeuQuant

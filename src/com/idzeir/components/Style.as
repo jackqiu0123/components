@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.acfun.components
+package com.idzeir.components
 {
 	/**
 	 * 统一字体工具

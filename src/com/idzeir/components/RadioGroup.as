@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.acfun.components
+package com.idzeir.components
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;

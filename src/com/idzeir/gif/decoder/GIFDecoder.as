@@ -6,13 +6,14 @@
 * @version 0.1 AS3 implementation
 */
 
-package com.idzeir.acfun.gif.decoder {
-	import flash.display.Bitmap;
+package com.idzeir.gif.decoder 
+{
+	import com.idzeir.gif.errors.FileTypeError;
+	import com.idzeir.gif.frames.GIFFrame;
+	
 	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.utils.ByteArray;
-	import com.idzeir.acfun.gif.errors.FileTypeError;
-	import com.idzeir.acfun.gif.frames.GIFFrame;
 	
 	public class GIFDecoder 
 	{

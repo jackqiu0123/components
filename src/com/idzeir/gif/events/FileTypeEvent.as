@@ -1,4 +1,4 @@
-package com.idzeir.acfun.gif.events {
+package com.idzeir.gif.events {
 	import flash.events.Event;
 	
 	public class FileTypeEvent extends Event 	

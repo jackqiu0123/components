@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.acfun.components
+package com.idzeir.components
 {
 	public class ToggleButton extends HBox
 	{

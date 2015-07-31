@@ -1,4 +1,5 @@
-package com.idzeir.acfun.gif.frames {
+package com.idzeir.gif.frames 
+{
 	import flash.display.BitmapData;
 	
 	public class GIFFrame 

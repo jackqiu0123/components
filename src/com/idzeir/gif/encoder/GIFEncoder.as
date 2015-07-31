@@ -6,15 +6,10 @@
 * @version 0.1 AS3 implementation
 */
 
-package com.idzeir.acfun.gif.encoder {
-	import flash.utils.ByteArray;
-	import flash.display.BitmapData;
+package com.idzeir.gif.encoder {
 	import flash.display.Bitmap;
-	import com.idzeir.acfun.gif.encoder.NeuQuant
-	import flash.net.URLRequestHeader;
-	import flash.net.URLRequestMethod;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL;
+	import flash.display.BitmapData;
+	import flash.utils.ByteArray;
 	
 	public class GIFEncoder
 	{

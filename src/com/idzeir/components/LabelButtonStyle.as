@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.acfun.components
+package com.idzeir.components
 {
 	/**
 	 * LabelButton 显示样式
