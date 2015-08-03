@@ -14,6 +14,7 @@ package com.idzeir.gif {
 	import com.idzeir.gif.frames.GIFFrame;
 	
 	import flash.display.Bitmap;
+	import flash.display.BlendMode;
 	import flash.errors.ScriptTimeoutError;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -133,6 +134,7 @@ package com.idzeir.gif {
 				case 1:
 					if ( !iIndex ) 
 						bitmapData = aFrames[ 0 ].bitmapData.clone();
+					bitmapData.fillRect(bitmapData.rect,0x00000000);
 					bitmapData.draw ( aFrames[ iIndex ].bitmapData, null,null,null,null,true);
 					break
 				case 2:
