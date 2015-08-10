@@ -25,6 +25,7 @@
     <classEntry path="com.idzeir.gif.Gif"/>
     <classEntry path="com.idzeir.gif.errors.FileTypeError"/>
     <classEntry path="com.idzeir.components.Panel"/>
+    <classEntry path="com.idzeir.components.Slider"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

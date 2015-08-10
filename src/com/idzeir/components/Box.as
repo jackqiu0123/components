@@ -28,6 +28,11 @@ package com.idzeir.components
 			_content.mouseEnabled = false;
 			super.addChild(_content);
 		}
+		
+		public function set gap(value:int):void
+		{
+			_gap = value;
+		}
 		/**
 		 * 容器显示对象的长宽
 		 */		

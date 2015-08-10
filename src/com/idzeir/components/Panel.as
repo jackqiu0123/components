@@ -160,7 +160,7 @@ package com.idzeir.components
 			closelayer = lb;
 		}
 		
-		private function redraw():void
+		protected function redraw():void
 		{
 			//重绘背景
 			_bglayer.graphics.clear();
@@ -169,6 +169,7 @@ package com.idzeir.components
 			_bglayer.graphics.endFill();
 			if(_bglayer.numChildren>0)
 			{
+				_bglayer.graphics.clear();
 				_bglayer.width = _width;
 				_bglayer.height = _height;
 			}

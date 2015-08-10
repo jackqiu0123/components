@@ -58,7 +58,7 @@ package com.idzeir.components
 			update();
 		}
 		
-		public function set gap(value:int):void
+		override public function set gap(value:int):void
 		{
 			_gap = value;
 			update();
