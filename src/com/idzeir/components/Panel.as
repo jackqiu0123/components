@@ -179,7 +179,7 @@ package com.idzeir.components
 			if(_overFlow)
 			{
 				_mask.graphics.beginFill(0xFFFFFF);
-				_mask.graphics.drawRect(0,0,_width,_height);
+				_mask.graphics.drawRect(-1,-1,_width+2,_height+2);
 				_mask.graphics.endFill();
 				_elemBox.mask = _mask;
 			}else{

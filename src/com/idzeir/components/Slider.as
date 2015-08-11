@@ -31,7 +31,9 @@ package com.idzeir.components
 		protected var _block:Sprite;
 		protected var _blockbglayer:Sprite;
 		
+		/**水平样式常量*/
 		public static const HOR:String = "h";
+		/**垂直样式常量*/
 		public static const VER:String = "v";
 		
 		private var _box:Box;
@@ -47,6 +49,13 @@ package com.idzeir.components
 		 * 当前值(0-100) 
 		 */		
 		protected var _value:Number = 0;
+		
+		protected var _speed:Number = 0;
+		
+		/**
+		 * 每次移动的偏移量 
+		 */		
+		private var _step:Number = 3;
 		
 		/**
 		 * 滑动条
@@ -84,6 +93,13 @@ package com.idzeir.components
 					_block.height = _blockbglayer.height*value;
 					break;
 			}
+		}
+		/**
+		 * 修改每次移动的偏移量
+		 */		
+		public function set step(value:Number):void
+		{
+			_step = value;
 		}
 		
 		public function get value():Number
@@ -169,16 +185,20 @@ package com.idzeir.components
 			switch(tar)
 			{
 				case _up:
+					_speed = -_step;
 				case _down:
+					_speed = _speed == 0 ? _step : _speed;
 					_vaildId = setInterval(vaild,100);
 					stage.addEventListener(MouseEvent.MOUSE_UP,function():void
 					{
+						_speed = 0;
 						stage.removeEventListener(MouseEvent.MOUSE_UP,arguments.callee);
 						//停止滑动
 						clearInterval(_vaildId);
 					});
 					break;
 				case _block:
+					_speed = 0;
 					_vaildId = setInterval(vaild,100);
 					_block.startDrag(false,new Rectangle(0,0,_direct==VER?0:_blockbglayer.width - _block.width,_direct==VER?_blockbglayer.height - _block.height:0));
 					stage.addEventListener(MouseEvent.MOUSE_UP,function():void
@@ -198,9 +218,13 @@ package com.idzeir.components
 			switch(_direct)
 			{
 				case HOR:
+					_block.x += _speed;
+					correctPos();
 					newValue = _block.x/(_blockbglayer.width - _block.width);
 					break;
 				case VER:
+					_block.y += _speed;
+					correctPos();
 					newValue = _block.y/(_blockbglayer.height - _block.height);
 					break;
 			}
@@ -212,6 +236,25 @@ package com.idzeir.components
 				{
 					this.dispatchEvent(new Event(Event.CHANGE));
 				}
+			}
+		}
+		
+		/**
+		 * 矫正滑块位置
+		 */		
+		protected function correctPos():void
+		{
+			var max:Number = 0;
+			switch(_direct)
+			{
+				case HOR:
+					max = _width - _up.width - _down.width - _block.width;
+					_block.x = Math.min(max,Math.max(_block.x,0));
+					break;
+				case VER:
+					max = _height - _up.height - _down.height - _block.height;
+					_block.y = Math.min(max,Math.max(_block.y,0));
+					break;
 			}
 		}
 	}
