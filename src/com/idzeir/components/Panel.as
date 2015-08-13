@@ -52,10 +52,22 @@ package com.idzeir.components
 			_width = value;
 			redraw();
 		}
+		override public function get width():Number
+		{
+			if(_width==0)
+				return super.width;
+			return _width;
+		}
 		override public function set height(value:Number):void
 		{
 			_height = value;
 			redraw();
+		}
+		override public function get height():Number
+		{
+			if(_height==0)
+				return super.height;
+			return _height;
 		}
 		/**
 		 * 设置宽高
