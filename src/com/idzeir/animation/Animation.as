@@ -132,5 +132,16 @@ package com.idzeir.animation
 		{
 			
 		}
+		
+		/**
+		 * 在指定帧增加回调 <p>链式调用例子：先跳到第一帧，播放到第10帧执行代码<p>addScriptAt(10,function():void{trace("helloWorld")}).gotoAndPlay(1);
+		 * @param frameOrLabel 帧名称或者帧位置
+		 * @param handler
+		 * @return 返回动画本身，提供链式调用
+		 */		
+		public function addScriptAt(frameOrLabel:*,handler:Function):Animation
+		{
+			return this;
+		}
 	}
 }
