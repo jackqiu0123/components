@@ -220,7 +220,7 @@ package com.idzeir.animation
 			_isPlaying = true;
 			clearInterval(_id);
 			//多帧的时候才执行播放
-			if(totalFrame!=0){
+			if(totalFrame>1){
 				_id = setInterval(update,_frameRate);
 			}
 		}
