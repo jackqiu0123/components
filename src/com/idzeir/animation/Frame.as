@@ -49,8 +49,8 @@ package com.idzeir.animation
 		override public function draw(source:IBitmapDrawable, matrix:Matrix=null, colorTransform:ColorTransform=null, blendMode:String=null, clipRect:Rectangle=null, smoothing:Boolean=false):void
 		{
 			super.draw(source, matrix, colorTransform, blendMode, clipRect, smoothing);
-			_offX = clipRect.x;
-			_offY = clipRect.y;
+			_offX = -1*matrix.tx;
+			_offY = -1*matrix.ty;
 		}
 		
 		/**

@@ -14,6 +14,7 @@ package com.idzeir.utils
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
 	
 	/**
@@ -70,7 +71,11 @@ package com.idzeir.utils
 			bmd.dispose();
 			
 			var frameNode:Frame = new Frame(rect.width,rect.height,true,0x00FFFFFF);
-			frameNode.draw(source,null,null,null,rect,true);
+			
+			var matrix:Matrix = new Matrix();
+			matrix.translate(-rect.x,-rect.y);
+			
+			frameNode.draw(source,matrix,null,null,null,true);
 			
 			return frameNode;
 		}
