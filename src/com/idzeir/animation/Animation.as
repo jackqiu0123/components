@@ -22,7 +22,7 @@ package com.idzeir.animation
 	import flash.utils.setInterval;
 	
 	/**
-	 * 序列图动画类
+	 * 序列图动画类,当添加到舞台之后开始播放，移出舞台停止播放
 	 */	
 	public class Animation extends Sprite
 	{

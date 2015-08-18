@@ -51,7 +51,7 @@ package com.idzeir.components
 			{
 				//trace("存在缓存数据");
 				assets = (_map[key] as ImageAssets);
-				ok.apply(null,assets.getData())
+				ok.apply(null,[assets.getData()])
 			}else{
 				//没有缓存记录
 				if(!_queue.hasOwnProperty(key))
@@ -126,7 +126,7 @@ package com.idzeir.components
 				trace("存在缓存数据");
 				assets = (_map[key] as SWFAssets);
 				assets.definition = definition;
-				ok.apply(null,assets.getData())
+				ok.apply(null,[assets.getData()])
 			}else{
 				//没有缓存记录
 				if(!_queue.hasOwnProperty(key))
