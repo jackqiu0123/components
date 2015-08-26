@@ -33,6 +33,9 @@
     <classEntry path="com.idzeir.animation.Animation"/>
     <classEntry path="com.idzeir.animation.Frame"/>
     <classEntry path="com.idzeir.utils.SequenceUtil"/>
+    <classEntry path="com.idzeir.components.DropDownList"/>
+    <classEntry path="com.idzeir.data.Provider"/>
+    <classEntry path="com.idzeir.data.ProviderEvent"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
