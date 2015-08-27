@@ -9,13 +9,29 @@
 
 package com.idzeir.data
 {
-	import flash.errors.StackOverflowError;
 	import flash.events.EventDispatcher;
 	
+	/**每增加一条数据激发一次*/
+	[Event(name="add", type="com.idzeir.data.ProviderEvent")]
+	/**删除单条数据时候激发*/
+	[Event(name="remove", type="com.idzeir.data.ProviderEvent")]
+	/**发送数据覆盖时候激发*/
+	[Event(name="change", type="com.idzeir.data.ProviderEvent")]
+	/**清空对象时候激发*/
+	[Event(name="clear", type="com.idzeir.data.ProviderEvent")]
+	
+	/**
+	 * 组件数据 
+	 */	
 	public class Provider extends EventDispatcher
 	{
+		/**数据容器*/
 		private var _map:Array = [];
 		
+		/**
+		 * 将数组转换成provider
+		 * @param value
+		 */		
 		public function Provider(value:Array = null)
 		{
 			value&&(map = value);
@@ -24,10 +40,28 @@ package com.idzeir.data
 		public function set map(value:Array):void
 		{
 			removeAll();
-			value.forEach(function(e:*,index:int,arr:Array):void
+			value&&value.forEach(function(e:*,index:int,arr:Array):void
 			{
 				addItem(e);
 			});
+		}
+		/**
+		 * JSON化数据对象转成字符串，使用内置JSON
+		 * @return 
+		 */		
+		override public function toString():String
+		{
+			return JSON.stringify(_map);
+		}
+		
+		/**
+		 * 返回内容索引
+		 * @param value
+		 * @return 
+		 */		
+		public function indexOf(value:*):int
+		{
+			return _map.indexOf(value);
 		}
 		
 		/**
@@ -66,9 +100,9 @@ package com.idzeir.data
 			
 			_map[index] = value;
 			
-			if(this.willTrigger(isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE))
+			if(this.willTrigger(!isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE))
 			{
-				this.dispatchEvent(new ProviderEvent(isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE,index));
+				this.dispatchEvent(new ProviderEvent(!isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE,index));
 			}
 		}
 		/**
@@ -85,7 +119,7 @@ package com.idzeir.data
 					this.dispatchEvent(new ProviderEvent(ProviderEvent.REMOVE,index));
 				}
 			}else{
-				throw new StackOverflowError("指定索引超出范围",index);
+				throw new Error("指定索引超出范围",index);
 			}
 		}
 		/**

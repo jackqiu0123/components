@@ -9,6 +9,9 @@
 
 package com.idzeir.components
 {
+	import com.idzeir.data.Provider;
+	import com.idzeir.data.ProviderEvent;
+	
 	import flash.display.Sprite;
 	
 	/**
@@ -25,14 +28,65 @@ package com.idzeir.components
 		
 		private var _direct:uint = DOWN;
 		
+		private var _provider:Provider;
+		
 		public function DropDownList(render:IRender = null,_dir:uint = DOWN)
 		{
 			super();
 		}
 		
-		public function set dataProvider(value:Array):void
+		public function set dataProvider(value:Provider):void
 		{
-			
+			removeListeners();
+			_provider = value;
+			addListeners();
+		}
+		
+		public function get provider():Provider
+		{
+			return _provider;
+		}
+		
+		private function addListeners():void
+		{
+			if(_provider)
+			{
+				_provider.addEventListener(ProviderEvent.ADD,add);
+				_provider.addEventListener(ProviderEvent.REMOVE,remove);
+				_provider.addEventListener(ProviderEvent.CHANGE,change);
+				_provider.addEventListener(ProviderEvent.CLEAR,clear);
+			}
+		}
+		
+		private function removeListeners():void
+		{
+			if(_provider)
+			{
+				_provider.removeEventListener(ProviderEvent.ADD,add);
+				_provider.removeEventListener(ProviderEvent.REMOVE,remove);
+				_provider.removeEventListener(ProviderEvent.CHANGE,change);
+				_provider.removeEventListener(ProviderEvent.CLEAR,clear);
+			}
+		}
+		
+		protected function clear(e:ProviderEvent):void
+		{
+			trace("clear",e.index);
+		}
+		
+		protected function change(e:ProviderEvent):void
+		{
+			trace("change",e.index);
+		}
+		
+		protected function remove(e:ProviderEvent):void
+		{
+			trace("remove",e.index);
+		}
+		
+		protected function add(e:ProviderEvent):void
+		{
+			trace("add",e.index);
 		}
 
 		/**

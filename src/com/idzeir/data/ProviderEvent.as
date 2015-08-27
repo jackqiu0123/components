@@ -21,9 +21,10 @@ package com.idzeir.data
 		
 		private var _index:int = -1;
 		
-		public function ProviderEvent(type:String,index:int = null, bubbles:Boolean=false, cancelable:Boolean=false)
+		public function ProviderEvent(type:String,index:int = -1, bubbles:Boolean=false, cancelable:Boolean=false)
 		{
 			super(type, bubbles, cancelable);
+			_index = index;
 		}
 		
 		public function get index():int
