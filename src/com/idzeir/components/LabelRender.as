@@ -26,7 +26,7 @@ package com.idzeir.components
 		
 		private var _tf:TextFormat;
 		
-		private var _label:TextField;
+		protected var _label:TextField;
 		
 		private var _owner:DisplayObjectContainer;
 		

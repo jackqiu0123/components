@@ -19,6 +19,8 @@ package com.idzeir.data
 	[Event(name="change", type="com.idzeir.data.ProviderEvent")]
 	/**清空对象时候激发*/
 	[Event(name="clear", type="com.idzeir.data.ProviderEvent")]
+	/**更新对象时候激发*/
+	[Event(name="update", type="com.idzeir.data.ProviderEvent")]
 	
 	/**
 	 * 组件数据 
@@ -45,6 +47,24 @@ package com.idzeir.data
 				addItem(e);
 			});
 		}
+		
+		/**
+		 * 更新内部数据项
+		 * @param value
+		 */		
+		public function updateItem(value:*):void
+		{
+			var index:int = indexOf(value);
+			if(index!=-1)
+			{
+				_map[index] = value;
+				if(this.willTrigger(ProviderEvent.CHANGE))
+				{
+					this.dispatchEvent(new ProviderEvent(ProviderEvent.CHANGE,index));
+				}
+			}
+		}
+		
 		/**
 		 * JSON化数据对象转成字符串，使用内置JSON
 		 * @return 
@@ -62,6 +82,20 @@ package com.idzeir.data
 		public function indexOf(value:*):int
 		{
 			return _map.indexOf(value);
+		}
+		
+		/**
+		 * 获取指定索引的数据
+		 * @param value
+		 * @return 
+		 */		
+		public function getItemAt(value:int):*
+		{
+			if(value==-1)
+				return null;
+			if(value<_map.length)
+				return _map[value];
+			return null;
 		}
 		
 		/**

@@ -18,6 +18,7 @@ package com.idzeir.data
 		public static const REMOVE:String = "remove";
 		public static const ADD:String = "add";
 		public static const CHANGE:String = "change";
+		public static const UPDATE:String = "update";
 		
 		private var _index:int = -1;
 		
