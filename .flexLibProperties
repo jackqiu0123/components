@@ -28,7 +28,7 @@
     <classEntry path="com.idzeir.components.Slider"/>
     <classEntry path="com.idzeir.components.CheckBox"/>
     <classEntry path="com.idzeir.components.ImageButton"/>
-    <classEntry path="com.idzeir.components.AssetsManager"/>
+    <classEntry path="com.idzeir.utils.AssetsManager"/>
     <classEntry path="com.idzeir.components.Button"/>
     <classEntry path="com.idzeir.animation.Animation"/>
     <classEntry path="com.idzeir.animation.Frame"/>

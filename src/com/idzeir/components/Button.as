@@ -12,6 +12,7 @@ package com.idzeir.components
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import com.idzeir.utils.AssetsManager;
 
 	/**
 	 * 普通按钮

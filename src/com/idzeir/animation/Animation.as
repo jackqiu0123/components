@@ -9,7 +9,7 @@
 
 package com.idzeir.animation
 {
-	import com.idzeir.components.AssetsManager;
+	import com.idzeir.utils.AssetsManager;
 	import com.idzeir.utils.SequenceUtil;
 	
 	import flash.display.Bitmap;

@@ -7,7 +7,7 @@
  * ===================================
  */
 
-package com.idzeir.components
+package com.idzeir.utils
 {
 	import flash.display.Loader;
 	import flash.events.Event;

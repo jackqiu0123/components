@@ -13,6 +13,7 @@ package com.idzeir.components
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import com.idzeir.utils.AssetsManager;
 
 	/**
 	 * 图片按钮基类
