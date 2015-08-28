@@ -12,7 +12,9 @@ package com.idzeir.components
 	import com.idzeir.data.Provider;
 	import com.idzeir.data.ProviderEvent;
 	
+	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.utils.Dictionary;
 	
 	/**
@@ -23,9 +25,6 @@ package com.idzeir.components
 		//下拉列表方向类型
 		public static const DOWN:uint = 40;
 		public static const UP:uint = 38;
-		public static const RIGHT:uint = 39;
-		public static const LEFT:uint = 37;
-		
 		
 		private var _direct:uint = DOWN;
 		
@@ -34,27 +33,152 @@ package com.idzeir.components
 		private var _map:Dictionary = new Dictionary(true);
 		private var _render:IRender;
 		
-		private var _box:VBox;
+		protected var _box:VBox;
+		
+		protected var _setWidth:Number = 0;
+		protected var _setHeight:Number = 0;
+		protected var _slider:Slider;
+		protected var _mask:Shape;
 		
 		public function DropDownList(render:IRender = null,_dir:uint = DOWN)
 		{
 			super();
 			_render = render;
-			_box = this.addChild(new VBox()) as VBox;
+			addChildren();
 		}
 		
-		public function set dataProvider(value:Provider):void
+		/**
+		 * 初始化显示对象
+		 */		
+		protected function addChildren():void
+		{
+			_box = this.addChild(new VBox()) as VBox;
+			_mask = this.addChild(new Shape()) as Shape;
+			_slider = this.addChild(new Slider()) as Slider;
+			_box.mask = _mask;
+			
+			setGUI();
+			
+			redraw();
+			
+			addViewListeners();
+		}
+		/**
+		 * 增加默认的事件控制
+		 */		
+		protected function addViewListeners():void
+		{
+			_slider.addEventListener(Event.CHANGE,function():void
+			{
+				_box.y = -(_box.height - _mask.height)*_slider.value/100;
+			});
+		}
+		
+		/**
+		 * 默认ui
+		 */		
+		protected function setGUI():void
+		{
+			_mask.graphics.beginFill(0xFFFFFF);
+			_mask.graphics.drawRect(0,0,100,100);
+			_mask.graphics.endFill();
+			
+			this.graphics.beginFill(0xFFFFFF,0);
+			this.graphics.drawRect(0,0,100,100);
+			this.graphics.endFill();
+			
+			_slider.setSize(6,100);
+			_slider.percent = .5
+			
+			//默认大小
+			_setWidth = _setHeight = 100;
+		}
+		/**
+		 * 重绘布局
+		 */		
+		public function redraw():void
+		{
+			_slider.x = _setWidth - _slider.width;
+			
+			_mask.graphics.beginFill(0xFFFFFF);
+			_mask.graphics.drawRect(0,0,_setWidth,_setHeight);
+			_mask.graphics.endFill();
+			
+			this.graphics.beginFill(0xFFFFFF,0);
+			this.graphics.drawRect(0,0,_setHeight,_setHeight);
+			this.graphics.endFill();
+		}
+		/**
+		 * 设置大小
+		 * @param w 宽
+		 * @param h 高
+		 */		
+		public function setSize(w:Number,h:Number):void
+		{
+			_setWidth = w;
+			_setHeight = h;
+			redraw();
+		}
+		/**
+		 * 组件宽未设置情况为组件显示宽，默认宽100
+		 * @param value
+		 */		
+		override public function set width(value:Number):void
+		{
+			_setWidth = value;
+			redraw();
+		}
+		/**
+		 * @private 
+		 */		
+		override public function get width():Number
+		{
+			if(_setWidth!=0)
+			{
+				return _setWidth;
+			}
+			return super.width;
+		}
+		/**
+		 * 组件高未设置情况为组件显示高，默认宽100
+		 * @param value
+		 */		
+		override public function set height(value:Number):void
+		{
+			_setHeight = value;
+			redraw();
+		}
+		/**
+		 * @private
+		 */		
+		override public function get height():Number
+		{
+			if(_setHeight!=0)
+			{
+				return _setHeight;
+			}
+			return super.height;
+		}
+		/**
+		 * 组件显示的数据对象
+		 * @param value
+		 */		
+		public function set provider(value:Provider):void
 		{
 			removeListeners();
 			_provider = value;
 			addListeners();
 		}
-		
+		/**
+		 * @private
+		 */		
 		public function get provider():Provider
 		{
 			return _provider;
 		}
-		
+		/**
+		 * 增加监听数据的事件
+		 */		
 		private function addListeners():void
 		{
 			if(_provider)
@@ -66,7 +190,9 @@ package com.idzeir.components
 				_provider.addEventListener(ProviderEvent.UPDATE,update);
 			}
 		}
-		
+		/**
+		 * 移除数据事件
+		 */		
 		private function removeListeners():void
 		{
 			if(_provider)
@@ -78,7 +204,10 @@ package com.idzeir.components
 				_provider.removeEventListener(ProviderEvent.UPDATE,update);
 			}
 		}
-		
+		/**
+		 * 数据更新之后的处理，调用updateItem
+		 * @param e
+		 */		
 		protected function update(e:ProviderEvent):void
 		{
 			var data:* = this.provider.getItemAt(e.index);
@@ -89,7 +218,10 @@ package com.idzeir.components
 				item.startup(data);
 			}
 		}
-		
+		/**
+		 * 数据情况之后的处理
+		 * @param e
+		 */		
 		protected function clear(e:ProviderEvent):void
 		{
 			//trace("clear",e.index);
@@ -99,7 +231,10 @@ package com.idzeir.components
 			}
 			_box.removeChildren();
 		}
-		
+		/**
+		 * 数据覆盖的处理，直接替换provider元素
+		 * @param e
+		 */		
 		protected function change(e:ProviderEvent):void
 		{
 			//trace("change",e.index);
@@ -111,7 +246,10 @@ package com.idzeir.components
 				item.startup(data);
 			}
 		}
-		
+		/**
+		 * 移除单条记录
+		 * @param e
+		 */		
 		protected function remove(e:ProviderEvent):void
 		{
 			//trace("remove",e.index);
@@ -123,7 +261,10 @@ package com.idzeir.components
 				_box.removeChild(item.warp);
 			}
 		}
-		
+		/**
+		 * 增加数据处理
+		 * @param e
+		 */		
 		protected function add(e:ProviderEvent):void
 		{
 			//trace("add",e.index);
@@ -132,7 +273,14 @@ package com.idzeir.components
 			var data:* = this.provider.getItemAt(e.index);
 			_map[data] = item;
 			item.startup(data);
-			_box.addChild(item.warp);
+			
+			if((_box.numChildren-1)>=e.index)
+			{
+				_box.addChildAt(item.warp,e.index);
+			}else{
+				_box.addChild(item.warp);
+			}
+			
 			updatePos();
 		}
 

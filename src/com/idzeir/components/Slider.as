@@ -13,6 +13,7 @@ package com.idzeir.components
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
+	import flash.ui.Mouse;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
@@ -189,24 +190,28 @@ package com.idzeir.components
 				case _down:
 					_speed = _speed == 0 ? _step : _speed;
 					_vaildId = setInterval(vaild,100);
-					stage.addEventListener(MouseEvent.MOUSE_UP,function():void
+					stage.addEventListener(MouseEvent.MOUSE_UP,function(e:MouseEvent):void
 					{
 						_speed = 0;
 						stage.removeEventListener(MouseEvent.MOUSE_UP,arguments.callee);
 						//停止滑动
 						clearInterval(_vaildId);
+						e.stopImmediatePropagation();
+						e.stopPropagation();
 					});
 					break;
 				case _block:
 					_speed = 0;
 					_vaildId = setInterval(vaild,100);
 					_block.startDrag(false,new Rectangle(0,0,_direct==VER?0:_blockbglayer.width - _block.width,_direct==VER?_blockbglayer.height - _block.height:0));
-					stage.addEventListener(MouseEvent.MOUSE_UP,function():void
+					stage.addEventListener(MouseEvent.MOUSE_UP,function(e:MouseEvent):void
 					{
 						stage.removeEventListener(MouseEvent.MOUSE_UP,arguments.callee);
 						//停止滑动
 						_block.stopDrag();
 						clearInterval(_vaildId);
+						e.stopImmediatePropagation();
+						e.stopPropagation();
 					});
 					break;
 			}
