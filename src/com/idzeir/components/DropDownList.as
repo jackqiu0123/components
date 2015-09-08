@@ -99,13 +99,18 @@ package com.idzeir.components
 		public function redraw():void
 		{
 			_slider.x = _setWidth - _slider.width;
+			_slider.height = _setHeight;
+			//拖动过的组件重新定位滑块有问题，
+			_slider.percent = .5;
 			
+			_mask.graphics.clear();
 			_mask.graphics.beginFill(0xFFFFFF);
 			_mask.graphics.drawRect(0,0,_setWidth,_setHeight);
 			_mask.graphics.endFill();
 			
+			this.graphics.clear();
 			this.graphics.beginFill(0xFFFFFF,0);
-			this.graphics.drawRect(0,0,_setHeight,_setHeight);
+			this.graphics.drawRect(0,0,_setWidth,_setHeight);
 			this.graphics.endFill();
 		}
 		/**

@@ -13,7 +13,6 @@ package com.idzeir.components
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
-	import flash.ui.Mouse;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
 	
