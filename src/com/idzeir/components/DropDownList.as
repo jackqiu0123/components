@@ -15,7 +15,10 @@ package com.idzeir.components
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.utils.Dictionary;
+	
+	[Event(name="change", type="flash.events.Event")]
 	
 	/**
 	 * 下拉列表
@@ -37,8 +40,16 @@ package com.idzeir.components
 		
 		protected var _setWidth:Number = 0;
 		protected var _setHeight:Number = 0;
-		protected var _slider:Slider;
+		//protected var _slider:Slider;
 		protected var _mask:Shape;
+
+		private var _selectRender:IRender;
+		
+		private var _isOpen:Boolean = false;
+
+		private var content:VBox;
+		
+		private var _index:uint = 0;
 		
 		public function DropDownList(render:IRender = null,_dir:uint = DOWN)
 		{
@@ -52,10 +63,20 @@ package com.idzeir.components
 		 */		
 		protected function addChildren():void
 		{
-			_box = this.addChild(new VBox()) as VBox;
-			_mask = this.addChild(new Shape()) as Shape;
-			_slider = this.addChild(new Slider()) as Slider;
-			_box.mask = _mask;
+			content = new VBox();
+			content.gap = 0;
+			
+			_selectRender = new (_render.definition)();
+			_selectRender.owner = content;
+			_selectRender.startup();
+			content.addChild(_selectRender.warp);
+			
+			_box = new VBox();//content.addChild(new VBox()) as VBox;
+			_mask = new Shape()//content.addRawChild(new Shape()) as Shape;
+			//_slider = this.addChild(new Slider()) as Slider;
+			//_box.mask = _mask;
+			
+			this.addChild(content);
 			
 			setGUI();
 			
@@ -63,15 +84,108 @@ package com.idzeir.components
 			
 			addViewListeners();
 		}
+		
 		/**
 		 * 增加默认的事件控制
 		 */		
 		protected function addViewListeners():void
 		{
-			_slider.addEventListener(Event.CHANGE,function():void
+			/*_slider.addEventListener(Event.CHANGE,function():void
 			{
 				_box.y = -(_box.height - _mask.height)*_slider.value/100;
+			});*/
+			
+			_box.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void
+			{
+				var tar:IRender = e.target as IRender;
+				if(tar)
+				{
+					for(var i:uint = 0; i<provider.size;++i)
+					{
+						var o:* = provider.getItemAt(i);
+						if(o&&_map[o]==tar)
+						{
+							index = i;
+							break;
+						}
+					}
+				}
+				close();
 			});
+			
+			_selectRender.warp.addEventListener(MouseEvent.CLICK,function():void
+			{
+				if(_isOpen)
+				{
+					content.removeChild(_box);
+				}else{
+					content.addChild(_box);
+				}
+				_isOpen=!_isOpen;
+			});
+		}
+		/**
+		 * 当前下来条显示状态，true为显示下拉条，否则为隐藏
+		 * @return 
+		 */		
+		public function get isOpen():Boolean
+		{
+			return _isOpen;
+		}
+		
+		/**
+		 * 当前选中的数据项
+		 * @return 
+		 */		
+		public function get selectedItem():*
+		{
+			return provider.getItemAt(_index);
+		}
+		/**
+		 * 关闭下拉列表
+		 */		
+		public function close():void
+		{
+			if(content.contains(_box))
+			{
+				content.removeChild(_box);
+				_isOpen = false;
+			}
+		}
+		/**
+		 * 打开下拉列表
+		 */		
+		public function open():void
+		{
+			if(!content.contains(_box))
+			{
+				content.addChild(_box);
+				_isOpen = true;
+			}
+		}
+		
+		/**
+		 * 选中项索引
+		 * @param value
+		 */		
+		public function set index(value:uint):void
+		{
+			if(_index!=value)
+			{
+				_index = value;
+				_selectRender.startup(provider.getItemAt(value));
+				if(willTrigger(Event.CHANGE))
+				{
+					dispatchEvent(new Event(Event.CHANGE));
+				}
+			}
+		}
+		/**
+		 * @private
+		 */		
+		public function get index():uint
+		{
+			return _index;
 		}
 		
 		/**
@@ -87,8 +201,8 @@ package com.idzeir.components
 			this.graphics.drawRect(0,0,100,100);
 			this.graphics.endFill();
 			
-			_slider.setSize(6,100);
-			_slider.percent = .5
+			//_slider.setSize(6,100);
+			//_slider.percent = .5
 			
 			//默认大小
 			_setWidth = _setHeight = 100;
@@ -98,10 +212,10 @@ package com.idzeir.components
 		 */		
 		public function redraw():void
 		{
-			_slider.x = _setWidth - _slider.width;
-			_slider.height = _setHeight;
+			//_slider.x = _setWidth - _slider.width;
+			//_slider.height = _setHeight;
 			//拖动过的组件重新定位滑块有问题，
-			_slider.percent = .5;
+			//_slider.percent = .5;
 			
 			_mask.graphics.clear();
 			_mask.graphics.beginFill(0xFFFFFF);
@@ -193,6 +307,7 @@ package com.idzeir.components
 				_provider.addEventListener(ProviderEvent.CHANGE,change);
 				_provider.addEventListener(ProviderEvent.CLEAR,clear);
 				_provider.addEventListener(ProviderEvent.UPDATE,update);
+				_provider.addEventListener(ProviderEvent.INSERT,add);
 			}
 		}
 		/**
@@ -207,6 +322,7 @@ package com.idzeir.components
 				_provider.removeEventListener(ProviderEvent.CHANGE,change);
 				_provider.removeEventListener(ProviderEvent.CLEAR,clear);
 				_provider.removeEventListener(ProviderEvent.UPDATE,update);
+				_provider.removeEventListener(ProviderEvent.INSERT,add);
 			}
 		}
 		/**
@@ -221,6 +337,8 @@ package com.idzeir.components
 			{
 				//更新数据
 				item.startup(data);
+				if(e.index==_index)
+					_selectRender.startup(data);
 			}
 		}
 		/**
@@ -249,6 +367,8 @@ package com.idzeir.components
 			{
 				//更新数据
 				item.startup(data);
+				if(e.index==_index)
+					_selectRender.startup(data);
 			}
 		}
 		/**
@@ -278,6 +398,8 @@ package com.idzeir.components
 			var data:* = this.provider.getItemAt(e.index);
 			_map[data] = item;
 			item.startup(data);
+			if(e.index==_index)
+				_selectRender.startup(data);
 			
 			if((_box.numChildren-1)>=e.index)
 			{

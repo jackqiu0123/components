@@ -21,6 +21,8 @@ package com.idzeir.data
 	[Event(name="clear", type="com.idzeir.data.ProviderEvent")]
 	/**更新对象时候激发*/
 	[Event(name="update", type="com.idzeir.data.ProviderEvent")]
+	/**插入指定位置*/
+	[Event(name="insert", type="com.idzeir.data.ProviderEvent")]
 	
 	/**
 	 * 组件数据 
@@ -83,6 +85,14 @@ package com.idzeir.data
 		{
 			return _map.indexOf(value);
 		}
+		/**
+		 * 数据条数
+		 * @return 
+		 */		
+		public function get size():uint
+		{
+			return _map.length;
+		}
 		
 		/**
 		 * 获取指定索引的数据
@@ -124,19 +134,25 @@ package com.idzeir.data
 			}
 		}
 		/**
-		 * 提加到指定位置一条数据，初始化激发ProviderEvent.ADD,覆盖数据激活ProviderEvent.CHANGE
+		 * 提加到指定位置一条数据，派发插入或者add事件
 		 * @param index 索引位置
 		 * @param value 
 		 */		
 		public function addItemAt(index:int,value:Object):void
 		{
-			var isChange:Boolean = _map[index] == null ? false : true;
-			
-			_map[index] = value;
-			
-			if(this.willTrigger(!isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE))
+			if(_map[index]!=null)
 			{
-				this.dispatchEvent(new ProviderEvent(!isChange ? ProviderEvent.ADD : ProviderEvent.CHANGE,index));
+				_map.splice(index,0,value);
+				if(this.willTrigger(ProviderEvent.ADD))
+				{
+					this.dispatchEvent(new ProviderEvent(ProviderEvent.INSERT,index));
+				}
+			}else{
+				_map[index] = value;
+				if(this.willTrigger(ProviderEvent.ADD))
+				{
+					this.dispatchEvent(new ProviderEvent(ProviderEvent.ADD,index));
+				}
 			}
 		}
 		/**

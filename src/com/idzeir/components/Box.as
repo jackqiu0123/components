@@ -105,6 +105,16 @@ package com.idzeir.components
 			return _content.numChildren;
 		}
 		
+		override public function getChildIndex(child:DisplayObject):int
+		{
+			return _content.getChildIndex(child);
+		}
+		
+		public function getRawChildIndex(child:DisplayObject):int
+		{
+			return super.getChildIndex(child);
+		}
+		
 		override public function removeChildren(beginIndex:int=0, endIndex:int=2147483647):void
 		{
 			_content.removeChildren(beginIndex,endIndex);
